@@ -31,15 +31,15 @@ fileRoutes.put('/orders/:id/evidence', async (c) => {
 
   const key = `evidence/${orderId}`
 
-  if (order.evidence_key) {
-    await c.env.R2.delete(order.evidence_key)
-  }
-
   await c.env.R2.put(key, buffer, { httpMetadata: { contentType } })
 
   const now = new Date().toISOString()
   await c.env.DB.prepare('UPDATE orders SET evidence_key = ?, updated_at = ? WHERE id = ?')
     .bind(key, now, orderId).run()
+
+  if (order.evidence_key && order.evidence_key !== key) {
+    await c.env.R2.delete(order.evidence_key)
+  }
 
   return c.json({ ok: true })
 })
@@ -80,11 +80,14 @@ fileRoutes.put('/merchant/menu/:id/image', merchantAuth, async (c) => {
   }
 
   const key = `menu/${itemId}`
-  if (item.image_key) await c.env.R2.delete(item.image_key)
 
   await c.env.R2.put(key, buffer, { httpMetadata: { contentType } })
   await c.env.DB.prepare('UPDATE menu_items SET image_key = ? WHERE id = ?')
     .bind(key, itemId).run()
+
+  if (item.image_key && item.image_key !== key) {
+    await c.env.R2.delete(item.image_key)
+  }
 
   return c.json({ imageKey: key })
 })

@@ -12,6 +12,8 @@ binding = "DB"
 database_name = "oshi-db"
 database_id = "PLACEHOLDER_REPLACE_AFTER_D1_CREATE"
 
+# Worker secrets — set via: wrangler secret put MERCHANT_SECRET
+# For local dev: create .dev.vars file with MERCHANT_SECRET=your-secret-here
 [[r2_buckets]]
 binding = "R2"
 bucket_name = "oshi-files"

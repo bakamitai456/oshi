@@ -1,0 +1,11 @@
+{
+  "name": "oshi",
+  "private": true,
+  "workspaces": ["worker", "frontend"],
+  "scripts": {
+    "dev:worker": "cd worker && wrangler dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "deploy": "npm run build && wrangler deploy"
+  }
+}

@@ -1,0 +1,17 @@
+name = "oshi"
+main = "worker/src/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./frontend/dist"
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "oshi-db"
+database_id = "PLACEHOLDER_REPLACE_AFTER_D1_CREATE"
+
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "oshi-files"

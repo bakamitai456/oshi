@@ -33,7 +33,13 @@ export const api = {
         credentials: 'include',
         headers: { 'Content-Type': file.type },
         body: file,
-      }).then((r) => r.json() as Promise<{ imageKey: string }>),
+      }).then(async (r) => {
+        if (!r.ok) {
+          const e = await r.json().catch(() => ({ error: r.statusText })) as { error: string }
+          throw new Error(e.error)
+        }
+        return r.json() as Promise<{ imageKey: string }>
+      }),
   },
   orders: {
     create: (data: { customerName: string; phoneNumber: string; items: { menuItemId: string; name: string; price: number; quantity: number }[] }) =>
@@ -46,7 +52,13 @@ export const api = {
         credentials: 'include',
         headers: { 'Content-Type': file.type },
         body: file,
-      }).then((r) => r.json() as Promise<{ ok: boolean }>),
+      }).then(async (r) => {
+        if (!r.ok) {
+          const e = await r.json().catch(() => ({ error: r.statusText })) as { error: string }
+          throw new Error(e.error)
+        }
+        return r.json() as Promise<{ ok: boolean }>
+      }),
   },
   merchant: {
     login: (secret: string) =>

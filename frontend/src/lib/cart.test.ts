@@ -40,4 +40,16 @@ describe('cart', () => {
     clearCart()
     expect(getCart()).toHaveLength(0)
   })
+
+  it('removes item when quantity set to 0', () => {
+    addToCart(item)
+    updateQuantity('i1', 0)
+    expect(getCart()).toHaveLength(0)
+  })
+
+  it('removes item when quantity set to negative', () => {
+    addToCart(item)
+    updateQuantity('i1', -1)
+    expect(getCart()).toHaveLength(0)
+  })
 })

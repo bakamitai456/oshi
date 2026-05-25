@@ -26,6 +26,10 @@ export function addToCart(item: CartItem) {
 }
 
 export function updateQuantity(id: string, quantity: number) {
+  if (quantity <= 0) {
+    removeFromCart(id)
+    return
+  }
   const cart = getCart()
   const item = cart.find((i) => i.id === id)
   if (item) item.quantity = quantity

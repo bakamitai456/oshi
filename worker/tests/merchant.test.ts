@@ -136,3 +136,24 @@ describe('PATCH /api/merchant/orders/:id/status', () => {
     expect(res.status).toBe(422)
   })
 })
+
+describe('GET /api/merchant/orders/:id', () => {
+  it('returns 401 without auth', async () => {
+    const app = makeApp()
+    const res = await app.request('/api/merchant/orders/ord-1', {}, mockEnv())
+    expect(res.status).toBe(401)
+  })
+
+  it('returns order detail when authenticated', async () => {
+    const app = makeApp()
+    const res = await app.request('/api/merchant/orders/ord-1', {
+      headers: { 'Cookie': `merchant_token=${SECRET}` },
+    }, mockEnv())
+    expect(res.status).toBe(200)
+    const data = await res.json() as { id: string; orderNumber: string; phoneNumber: string; evidenceKey: unknown }
+    expect(data.id).toBe('ord-1')
+    expect(data.orderNumber).toBeDefined()
+    expect(data.phoneNumber).toBeDefined()
+    expect('evidenceKey' in data).toBe(true)
+  })
+})

@@ -1,5 +1,4 @@
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 import type { Bindings } from './types'
 import { menuRoutes } from './routes/menu'
 import { orderRoutes } from './routes/orders'
@@ -7,7 +6,6 @@ import { merchantRoutes } from './routes/merchant'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
-app.use('/api/*', cors({ origin: '*', credentials: true }))
 app.route('/api', menuRoutes)
 app.route('/api', orderRoutes)
 app.route('/api', merchantRoutes)

@@ -104,6 +104,10 @@ merchantRoutes.patch('/merchant/orders/:id/status', merchantAuth, async (c) => {
   const orderId = c.req.param('id')
   const body = await c.req.json<{ status: string }>()
 
+  if (!body.status || typeof body.status !== 'string') {
+    return c.json({ error: 'status is required' }, 400)
+  }
+
   const order = await c.env.DB.prepare('SELECT status FROM orders WHERE id = ?')
     .bind(orderId).first<{ status: string }>()
   if (!order) return c.json({ error: 'Not found' }, 404)

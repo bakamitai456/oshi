@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { MenuItemCard, formatTHB } from '../components/MenuItemCard'
 import { CartDrawer } from '../components/CartDrawer'
 import { useCart } from '../context/CartContext'
@@ -25,14 +26,22 @@ export function LandingPage() {
     <div className="min-h-screen bg-gray-50">
       <header className="sticky top-0 z-30 bg-white shadow-sm px-4 py-3 flex items-center justify-between">
         <h1 className="text-xl font-bold text-orange-600">เมนูอาหาร</h1>
-        {cartCount > 0 && (
-          <button
-            onClick={() => setDrawerOpen(true)}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-1.5 rounded-full text-sm font-medium transition-colors"
+        <div className="flex items-center gap-2">
+          <Link
+            to="/orders"
+            className="text-sm text-orange-500 hover:text-orange-600 font-medium transition-colors"
           >
-            ตะกร้า ({cartCount}) · {formatTHB(total)}
-          </button>
-        )}
+            ติดตามออเดอร์
+          </Link>
+          {cartCount > 0 && (
+            <button
+              onClick={() => setDrawerOpen(true)}
+              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-1.5 rounded-full text-sm font-medium transition-colors"
+            >
+              ตะกร้า ({cartCount}) · {formatTHB(total)}
+            </button>
+          )}
+        </div>
       </header>
 
       <main className="p-4 max-w-2xl mx-auto">

@@ -1,22 +1,26 @@
 import { Routes, Route } from 'react-router-dom'
 import { ProtectedRoute } from './components/ProtectedRoute'
+import { LandingPage } from './pages/LandingPage'
+import { CheckoutPage } from './pages/CheckoutPage'
+import { PaymentPage } from './pages/PaymentPage'
+import { OrderLookupPage } from './pages/OrderLookupPage'
 
-// Placeholder pages — will be replaced in Tasks 5b and 5c
-const Placeholder = ({ name }: { name: string }) => (
-  <div className="p-8 text-center text-gray-500">{name} — coming soon</div>
+// Merchant pages will be wired in Task 5c — keep placeholders for now
+const MerchantPlaceholder = ({ name }: { name: string }) => (
+  <div className="p-8 text-center text-gray-500">{name} — coming in Task 5c</div>
 )
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Placeholder name="Landing" />} />
-      <Route path="/checkout" element={<Placeholder name="Checkout" />} />
-      <Route path="/payment/:id" element={<Placeholder name="Payment" />} />
-      <Route path="/orders" element={<Placeholder name="Order Lookup" />} />
-      <Route path="/merchant" element={<Placeholder name="Merchant Login" />} />
-      <Route path="/merchant/orders" element={<ProtectedRoute><Placeholder name="Merchant Orders" /></ProtectedRoute>} />
-      <Route path="/merchant/orders/:id" element={<ProtectedRoute><Placeholder name="Order Detail" /></ProtectedRoute>} />
-      <Route path="/merchant/menu" element={<ProtectedRoute><Placeholder name="Menu Management" /></ProtectedRoute>} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/checkout" element={<CheckoutPage />} />
+      <Route path="/payment/:id" element={<PaymentPage />} />
+      <Route path="/orders" element={<OrderLookupPage />} />
+      <Route path="/merchant" element={<MerchantPlaceholder name="Merchant Login" />} />
+      <Route path="/merchant/orders" element={<ProtectedRoute><MerchantPlaceholder name="Merchant Orders" /></ProtectedRoute>} />
+      <Route path="/merchant/orders/:id" element={<ProtectedRoute><MerchantPlaceholder name="Order Detail" /></ProtectedRoute>} />
+      <Route path="/merchant/menu" element={<ProtectedRoute><MerchantPlaceholder name="Menu Management" /></ProtectedRoute>} />
     </Routes>
   )
 }

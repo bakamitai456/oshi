@@ -6,6 +6,7 @@ compatibility_flags = ["nodejs_compat"]
 [assets]
 directory = "./frontend/dist"
 binding = "ASSETS"
+not_found_handling = "single-page-application"
 
 # Local dev bindings (used by wrangler dev / npm run dev:worker)
 # Secrets: create .dev.vars with MERCHANT_SECRET=your-local-secret

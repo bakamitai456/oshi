@@ -36,6 +36,7 @@ export function CheckoutPage() {
         items: items.map((i) => ({ menuItemId: i.id, name: i.name, price: i.price, quantity: i.quantity })),
       })
       clear()
+      localStorage.setItem('oshi_last_order_id', orderId)
       navigate(`/payment/${orderId}`)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'เกิดข้อผิดพลาด')

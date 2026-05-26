@@ -14,6 +14,7 @@ export function PaymentPage() {
   const [file, setFile] = useState<File | null>(null)
   const [fileError, setFileError] = useState('')
   const [uploaded, setUploaded] = useState(false)
+  const [reupload, setReupload] = useState(false)
   const [uploading, setUploading] = useState(false)
 
   useEffect(() => {
@@ -78,7 +79,7 @@ export function PaymentPage() {
         <p className="text-xs text-gray-400 mt-1">กรุณาโอนตามยอดที่แสดง</p>
       </div>
 
-      {uploaded ? (
+      {uploaded && !reupload ? (
         <div className="bg-green-50 border border-green-200 rounded-xl p-5 text-center">
           <p className="text-green-700 font-bold text-lg">ส่งหลักฐานสำเร็จ ✓</p>
           <p className="text-sm text-green-600 mt-2">
@@ -86,13 +87,28 @@ export function PaymentPage() {
             <span className="font-mono font-bold">{order.orderNumber}</span>
           </p>
           <p className="text-xs text-gray-400 mt-2">แสดงเลขนี้เมื่อมารับที่ร้าน</p>
-          <Link to="/orders" className="mt-4 inline-block text-orange-500 underline text-sm">
-            ติดตามออเดอร์
-          </Link>
+          <div className="mt-4 flex flex-col gap-2 items-center">
+            <Link to="/orders" className="text-orange-500 underline text-sm">
+              ติดตามออเดอร์
+            </Link>
+            <button
+              onClick={() => setReupload(true)}
+              className="text-gray-400 underline text-xs"
+            >
+              อัปโหลดหลักฐานใหม่
+            </button>
+          </div>
         </div>
       ) : (
         <form onSubmit={handleUpload} className="bg-white rounded-xl p-4 shadow-sm space-y-4">
-          <p className="font-semibold text-sm">อัปโหลดหลักฐานการโอนเงิน</p>
+          <p className="font-semibold text-sm">
+            {order.hasEvidence ? 'อัปโหลดหลักฐานใหม่' : 'อัปโหลดหลักฐานการโอนเงิน'}
+          </p>
+          {order.hasEvidence && (
+            <p className="text-xs text-amber-600 bg-amber-50 px-3 py-2 rounded-lg">
+              มีหลักฐานเดิมอยู่แล้ว — อัปโหลดไฟล์ใหม่เพื่อแทนที่
+            </p>
+          )}
           <p className="text-xs text-gray-400">รองรับ: JPEG, PNG, PDF ขนาดไม่เกิน 5 MB</p>
           <input
             type="file"

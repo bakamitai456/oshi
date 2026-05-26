@@ -1,13 +1,14 @@
 import { Hono } from 'hono'
+import { hashSecret } from '../lib/auth'
 import type { Bindings, MenuItem } from '../types'
 
 export const menuRoutes = new Hono<{ Bindings: Bindings }>()
 
-function isMerchantAuthed(c: { env: Bindings; req: { raw: Request } }): boolean {
+async function isMerchantAuthed(c: { env: Bindings; req: { raw: Request } }): Promise<boolean> {
   const cookie = c.req.raw.headers.get('cookie') ?? ''
   const match = cookie.match(/merchant_token=([^;]+)/)
   const token = match?.[1]
-  return !!token && token === c.env.MERCHANT_SECRET
+  return !!token && token === await hashSecret(c.env.MERCHANT_SECRET)
 }
 
 menuRoutes.get('/menu', async (c) => {
@@ -28,7 +29,7 @@ menuRoutes.get('/menu', async (c) => {
 })
 
 menuRoutes.post('/merchant/menu', async (c) => {
-  if (!isMerchantAuthed(c)) return c.json({ error: 'Unauthorized' }, 401)
+  if (!await isMerchantAuthed(c)) return c.json({ error: 'Unauthorized' }, 401)
 
   const body = await c.req.json<{
     name: string
@@ -52,7 +53,7 @@ menuRoutes.post('/merchant/menu', async (c) => {
 })
 
 menuRoutes.patch('/merchant/menu/:id', async (c) => {
-  if (!isMerchantAuthed(c)) return c.json({ error: 'Unauthorized' }, 401)
+  if (!await isMerchantAuthed(c)) return c.json({ error: 'Unauthorized' }, 401)
 
   const itemId = c.req.param('id')
   const body = await c.req.json<Partial<{
@@ -86,7 +87,7 @@ menuRoutes.patch('/merchant/menu/:id', async (c) => {
 })
 
 menuRoutes.delete('/merchant/menu/:id', async (c) => {
-  if (!isMerchantAuthed(c)) return c.json({ error: 'Unauthorized' }, 401)
+  if (!await isMerchantAuthed(c)) return c.json({ error: 'Unauthorized' }, 401)
 
   const itemId = c.req.param('id')
   await c.env.DB.prepare('UPDATE menu_items SET is_available = 0 WHERE id = ?')

@@ -74,6 +74,14 @@ export function OrderLookupPage() {
                 {order.status === 'ready' && (
                   <p className="mt-2 text-green-600 text-sm font-medium">🎉 ออเดอร์พร้อมรับแล้ว!</p>
                 )}
+                {order.status === 'pending' && (
+                  <Link
+                    to={`/payment/${order.id}`}
+                    className="mt-3 inline-block w-full text-center bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    {order.hasEvidence ? 'อัปโหลดหลักฐานใหม่' : 'อัปโหลดหลักฐานการชำระเงิน'}
+                  </Link>
+                )}
               </div>
             ))}
           </div>

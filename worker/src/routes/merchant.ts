@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { setCookie, deleteCookie } from 'hono/cookie'
 import { merchantAuth } from '../middleware/auth'
+import { hashSecret } from '../lib/auth'
 import type { Bindings, Order, OrderItem } from '../types'
 
 export const merchantRoutes = new Hono<{ Bindings: Bindings }>()
@@ -11,7 +12,7 @@ merchantRoutes.post('/merchant/login', async (c) => {
     return c.json({ error: 'Invalid secret' }, 401)
   }
 
-  setCookie(c, 'merchant_token', c.env.MERCHANT_SECRET, {
+  setCookie(c, 'merchant_token', await hashSecret(c.env.MERCHANT_SECRET), {
     httpOnly: true,
     secure: true,
     sameSite: 'Strict',

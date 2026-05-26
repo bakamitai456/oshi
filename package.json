@@ -1,6 +1,10 @@
 {
   "name": "oshi",
   "private": true,
+  "engines": {
+    "node": ">=24.0.0",
+    "npm": ">=10.0.0"
+  },
   "workspaces": ["worker", "frontend"],
   "scripts": {
     "dev:worker": "cd worker && wrangler dev",

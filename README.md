@@ -61,6 +61,16 @@ Create a `.dev.vars` file in the repo root (gitignored):
 MERCHANT_SECRET=dev-secret-change-me
 ```
 
+### Apply local database schema
+
+Run once after cloning (and again if you delete `.wrangler/`):
+
+```bash
+npx wrangler d1 execute oshi-db --local --file=worker/src/db/schema.sql
+```
+
+Expected: `5 commands executed successfully.`
+
 ### Run
 
 Open two terminals:

@@ -16,8 +16,11 @@ export function MerchantLoginPage() {
     try {
       await api.merchant.login(secret.trim())
       navigate('/merchant/orders')
-    } catch {
-      setError('รหัสไม่ถูกต้อง')
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : ''
+      setError(msg === 'Invalid secret' || msg.toLowerCase().includes('invalid') || msg.toLowerCase().includes('unauthorized')
+        ? 'รหัสไม่ถูกต้อง'
+        : 'เกิดข้อผิดพลาด กรุณาลองใหม่')
     } finally {
       setLoading(false)
     }

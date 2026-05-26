@@ -5,7 +5,7 @@ import { OrderStatusBadge } from '../components/OrderStatusBadge'
 import { formatTHB } from '../components/MenuItemCard'
 import type { Order } from '../types'
 
-type DetailOrder = Order & { phoneNumber: string; evidenceKey: string | null }
+type DetailOrder = Order & { evidenceKey: string | null }
 
 const ACTIONS: Record<string, { label: string; next: string; danger?: boolean }[]> = {
   pending: [

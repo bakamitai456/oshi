@@ -15,9 +15,13 @@ export function MerchantMenuPage() {
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [saving, setSaving] = useState(false)
   const [formError, setFormError] = useState('')
+  const [actionMsg, setActionMsg] = useState<{ type: 'error' | 'success'; text: string } | null>(null)
+  const [loadError, setLoadError] = useState('')
 
   const loadItems = useCallback(() => {
-    api.menu.list().then((d) => setItems(d.items))
+    api.menu.list()
+      .then((d) => setItems(d.items))
+      .catch(() => setLoadError('ไม่สามารถโหลดเมนูได้'))
   }, [])
 
   useEffect(() => { loadItems() }, [loadItems])
@@ -85,14 +89,22 @@ export function MerchantMenuPage() {
   }
 
   async function handleToggleAvailability(item: MenuItem) {
-    await api.menu.update(item.id, { isAvailable: !item.isAvailable }).catch(() => undefined)
-    loadItems()
+    try {
+      await api.menu.update(item.id, { isAvailable: !item.isAvailable })
+      loadItems()
+    } catch {
+      setActionMsg({ type: 'error', text: `ไม่สามารถ${item.isAvailable ? 'ปิด' : 'เปิด'}เมนูได้` })
+    }
   }
 
   async function handleDelete(item: MenuItem) {
     if (!confirm(`ลบ "${item.name}" ออกจากเมนู?`)) return
-    await api.menu.delete(item.id).catch(() => undefined)
-    loadItems()
+    try {
+      await api.menu.delete(item.id)
+      loadItems()
+    } catch {
+      setActionMsg({ type: 'error', text: `ไม่สามารถลบ "${item.name}" ได้` })
+    }
   }
 
   return (
@@ -178,9 +190,16 @@ export function MerchantMenuPage() {
 
       {/* Item list */}
       <div className="px-4 py-4 space-y-2 pb-8">
-        {items.length === 0 && (
-          <p className="text-center text-gray-400 py-8">ยังไม่มีเมนู</p>
+        {actionMsg && (
+          <div className={`mb-3 px-3 py-2 rounded-lg text-sm flex items-center justify-between ${
+            actionMsg.type === 'error' ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'
+          }`}>
+            <span>{actionMsg.text}</span>
+            <button onClick={() => setActionMsg(null)} className="ml-3 text-lg leading-none">&times;</button>
+          </div>
         )}
+        {loadError && <p className="text-center text-red-500 py-8">{loadError}</p>}
+        {!loadError && items.length === 0 && <p className="text-center text-gray-400 py-8">ยังไม่มีเมนู</p>}
         {items.map((item) => (
           <div key={item.id} className="bg-white rounded-xl p-3 shadow-sm flex items-center gap-3">
             {item.imageKey ? (

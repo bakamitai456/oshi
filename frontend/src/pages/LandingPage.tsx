@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { MenuItemCard } from '../components/MenuItemCard'
+import { MenuItemCard, formatTHB } from '../components/MenuItemCard'
 import { CartDrawer } from '../components/CartDrawer'
 import { useCart } from '../context/CartContext'
 import { api } from '../lib/api'
@@ -30,7 +30,7 @@ export function LandingPage() {
             onClick={() => setDrawerOpen(true)}
             className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-1.5 rounded-full text-sm font-medium transition-colors"
           >
-            ตะกร้า ({cartCount}) · ฿{(total / 100).toFixed(0)}
+            ตะกร้า ({cartCount}) · {formatTHB(total)}
           </button>
         )}
       </header>

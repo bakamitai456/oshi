@@ -26,7 +26,7 @@ export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => vo
               {items.map((item) => (
                 <div key={item.id} className="py-2 flex items-center gap-3">
                   <span className="flex-1 text-sm">{item.name}</span>
-                  <span className="text-xs text-gray-500 w-20 text-right">{formatTHB(item.price)}</span>
+                  <span className="text-xs text-gray-500 w-20 text-right">{formatTHB(item.price * item.quantity)}</span>
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() => update(item.id, item.quantity - 1)}

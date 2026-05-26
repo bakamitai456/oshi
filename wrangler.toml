@@ -7,13 +7,43 @@ compatibility_flags = ["nodejs_compat"]
 directory = "./frontend/dist"
 binding = "ASSETS"
 
+# Local dev bindings (used by wrangler dev / npm run dev:worker)
+# Secrets: create .dev.vars with MERCHANT_SECRET=your-local-secret
 [[d1_databases]]
 binding = "DB"
 database_name = "oshi-db"
 database_id = "PLACEHOLDER_REPLACE_AFTER_D1_CREATE"
 
-# Worker secrets — set via: wrangler secret put MERCHANT_SECRET
-# For local dev: create .dev.vars file with MERCHANT_SECRET=your-secret-here
 [[r2_buckets]]
 binding = "R2"
 bucket_name = "oshi-files"
+
+# ── Beta environment ──────────────────────────────────────────────────────────
+# Deployed automatically on every push to main.
+# Worker secrets: wrangler secret put MERCHANT_SECRET --env beta
+[env.beta]
+name = "oshi-beta"
+
+[[env.beta.d1_databases]]
+binding = "DB"
+database_name = "oshi-beta-db"
+database_id = "PLACEHOLDER_BETA_D1_ID"
+
+[[env.beta.r2_buckets]]
+binding = "R2"
+bucket_name = "oshi-beta-files"
+
+# ── Production environment ────────────────────────────────────────────────────
+# Deployed manually via GitHub Actions workflow_dispatch.
+# Worker secrets: wrangler secret put MERCHANT_SECRET --env production
+[env.production]
+name = "oshi-production"
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "oshi-production-db"
+database_id = "PLACEHOLDER_PRODUCTION_D1_ID"
+
+[[env.production.r2_buckets]]
+binding = "R2"
+bucket_name = "oshi-production-files"

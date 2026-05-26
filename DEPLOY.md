@@ -44,13 +44,14 @@ Create `.dev.vars`:
 MERCHANT_SECRET=dev-secret-change-me
 ```
 
-Then:
-```bash
-# Terminal 1 — Frontend dev server
-cd frontend && npm run dev
+Then open two terminals:
 
-# Terminal 2 — Worker dev server  
-wrangler dev --local
+```bash
+# Terminal 1 — Worker API (port 8787)
+npm run dev:worker
+
+# Terminal 2 — Frontend (port 5173)
+npm run dev:frontend
 ```
 
-The frontend dev server proxies `/api` requests to the Worker on port 8787.
+Open `http://localhost:5173`. The frontend proxies `/api` requests to the Worker.

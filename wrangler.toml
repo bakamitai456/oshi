@@ -27,7 +27,7 @@ name = "oshi-beta"
 [[env.beta.d1_databases]]
 binding = "DB"
 database_name = "oshi-beta-db"
-database_id = "PLACEHOLDER_BETA_D1_ID"
+database_id = "e90d19db-69ad-4fad-bebe-8ece584de298"
 
 [[env.beta.r2_buckets]]
 binding = "R2"
@@ -42,7 +42,7 @@ name = "oshi-production"
 [[env.production.d1_databases]]
 binding = "DB"
 database_name = "oshi-production-db"
-database_id = "PLACEHOLDER_PRODUCTION_D1_ID"
+database_id = "d5648298-548e-4960-9af0-3069a0dfdaa7"
 
 [[env.production.r2_buckets]]
 binding = "R2"

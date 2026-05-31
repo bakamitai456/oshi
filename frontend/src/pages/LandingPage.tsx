@@ -91,9 +91,14 @@ export function LandingPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="sticky top-0 z-30 bg-white shadow-sm px-4 py-3 flex items-center justify-between">
-        <h1 className="text-xl font-bold text-orange-600">เมนูอาหาร</h1>
-        <div className="flex items-center gap-2">
+      <header className="sticky top-0 z-30 bg-white shadow-sm px-4 py-3 flex items-center">
+        <div className="w-1/4">
+          <Link to="/" className="text-xl font-bold text-orange-600">oshi</Link>
+        </div>
+        <div className="flex-1 flex justify-center">
+          <h1 className="text-xl font-bold text-gray-900">เมนูอาหาร</h1>
+        </div>
+        <div className="w-1/4 flex items-center justify-end gap-2">
           <Link
             to="/orders"
             className="text-sm text-orange-500 hover:text-orange-600 font-medium transition-colors"

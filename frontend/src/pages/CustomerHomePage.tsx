@@ -25,14 +25,18 @@ export function CustomerHomePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* ── Sticky header ── */}
-      <header className="sticky top-0 z-30 bg-white shadow-sm px-4 py-3 flex items-center justify-between">
-        <span className="text-xl font-bold text-orange-600">oshi</span>
-        <nav className="flex items-center gap-4">
+      <header className="sticky top-0 z-30 bg-white shadow-sm px-4 py-3 flex items-center">
+        <div className="w-1/4">
+          <Link to="/" className="text-xl font-bold text-orange-600">oshi</Link>
+        </div>
+        <nav className="flex-1 flex items-center justify-center gap-4">
           <button onClick={() => scrollToSection(aboutRef)} className="text-sm text-gray-600 hover:text-orange-500 transition-colors">เกี่ยวกับเรา</button>
           <button onClick={() => scrollToSection(menuRef)} className="text-sm text-gray-600 hover:text-orange-500 transition-colors">เมนู</button>
           <button onClick={() => scrollToSection(howRef)} className="text-sm text-gray-600 hover:text-orange-500 transition-colors">วิธีสั่ง</button>
-          <Link to="/orders" className="text-sm text-orange-500 hover:text-orange-600 font-medium transition-colors">ติดตามออเดอร์</Link>
         </nav>
+        <div className="w-1/4 flex justify-end">
+          <Link to="/orders" className="text-sm text-orange-500 hover:text-orange-600 font-medium transition-colors">ติดตามออเดอร์</Link>
+        </div>
       </header>
 
       {/* ── Hero ── */}
@@ -48,9 +52,9 @@ export function CustomerHomePage() {
       </section>
 
       {/* ── About Us ── */}
-      <section ref={aboutRef} className="px-6 py-16 max-w-2xl mx-auto">
+      <section ref={aboutRef} className="px-6 py-16 max-w-2xl mx-auto text-center">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">เกี่ยวกับเรา</h2>
-        <div className="w-10 h-1 bg-orange-400 rounded mb-6" />
+        <div className="w-10 h-1 bg-orange-400 rounded mb-6 mx-auto" />
         <p className="text-gray-600 leading-relaxed mb-4">
           oshi คือร้านอาหารที่เราเชื่อว่าทุกมื้อควรเป็นมื้อที่ดี เราคัดสรรวัตถุดิบสดใหม่และปรุงอาหารตามสั่งด้วยความตั้งใจทุกจาน
         </p>
@@ -64,9 +68,9 @@ export function CustomerHomePage() {
 
       {/* ── Menu ── */}
       <section ref={menuRef} className="bg-gray-50 px-6 py-16">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">เมนู</h2>
-          <div className="w-10 h-1 bg-orange-400 rounded mb-6" />
+          <div className="w-10 h-1 bg-orange-400 rounded mb-6 mx-auto" />
           {menuLoading && <p className="text-gray-400 text-center py-8">กำลังโหลด...</p>}
           {!menuLoading && menuItems.length === 0 && (
             <p className="text-gray-400 text-center py-8">ยังไม่มีเมนูในขณะนี้</p>
@@ -97,10 +101,10 @@ export function CustomerHomePage() {
       </section>
 
       {/* ── How to Order ── */}
-      <section ref={howRef} className="px-6 py-16 max-w-2xl mx-auto">
+      <section ref={howRef} className="px-6 py-16 max-w-2xl mx-auto text-center">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">วิธีสั่งซื้อ</h2>
-        <div className="w-10 h-1 bg-orange-400 rounded mb-6" />
-        <ol className="space-y-4">
+        <div className="w-10 h-1 bg-orange-400 rounded mb-6 mx-auto" />
+        <ol className="space-y-4 text-left">
           {[
             { step: '1', text: 'เลือกเมนูที่ต้องการและเพิ่มลงตะกร้า' },
             { step: '2', text: 'กรอกชื่อและเบอร์โทรศัพท์ของคุณ' },

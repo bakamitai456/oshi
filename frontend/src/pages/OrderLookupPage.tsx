@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { api } from '../lib/api'
 import { OrderStatusBadge } from '../components/OrderStatusBadge'
 import { formatTHB } from '../components/MenuItemCard'
@@ -13,6 +13,7 @@ export function OrderLookupPage() {
   const [orders, setOrders] = useState<Order[] | null>(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
   const pickupLocation = usePickupLocation()
 
   async function handleLookup(e: React.FormEvent) {
@@ -33,7 +34,7 @@ export function OrderLookupPage() {
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-6 max-w-md mx-auto">
       <div className="flex items-center gap-3 mb-4">
-        <Link to="/order" className="text-orange-500">←</Link>
+        <button onClick={() => navigate(-1)} className="text-orange-500">←</button>
         <h1 className="text-2xl font-bold">ติดตามออเดอร์</h1>
       </div>
 

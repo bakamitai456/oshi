@@ -77,4 +77,7 @@ export const api = {
         }),
     },
   },
+  settings: {
+    get: () => req<{ pickupLocation: string }>('/settings'),
+  },
 }

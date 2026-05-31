@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../lib/api'
 import { OrderStatusBadge } from '../components/OrderStatusBadge'
@@ -12,6 +12,11 @@ export function OrderLookupPage() {
   const [orders, setOrders] = useState<Order[] | null>(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [pickupLocation, setPickupLocation] = useState('')
+
+  useEffect(() => {
+    api.settings.get().then((s) => setPickupLocation(s.pickupLocation)).catch(() => {})
+  }, [])
 
   async function handleLookup(e: React.FormEvent) {
     e.preventDefault()
@@ -75,6 +80,9 @@ export function OrderLookupPage() {
                 <p className="text-orange-600 font-bold">{formatTHB(order.totalAmount)}</p>
                 {order.status === 'ready' && (
                   <p className="mt-2 text-green-600 text-sm font-medium">🎉 ออเดอร์พร้อมรับแล้ว!</p>
+                )}
+                {pickupLocation && (
+                  <p className="mt-2 text-xs text-gray-500">📍 {pickupLocation}</p>
                 )}
                 {order.status === 'pending' && (
                   <Link

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { api } from '../lib/api'
@@ -13,6 +13,11 @@ export function CheckoutPage() {
   const [phone, setPhone] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [pickupLocation, setPickupLocation] = useState('')
+
+  useEffect(() => {
+    api.settings.get().then((s) => setPickupLocation(s.pickupLocation)).catch(() => {})
+  }, [])
 
   if (items.length === 0) {
     return (
@@ -65,6 +70,16 @@ export function CheckoutPage() {
           <span className="text-orange-600">{formatTHB(total)}</span>
         </div>
       </div>
+
+      {pickupLocation && (
+        <div className="bg-orange-50 border border-orange-100 rounded-xl p-4 mb-4 flex items-start gap-2">
+          <span className="text-orange-500 mt-0.5">📍</span>
+          <div>
+            <p className="text-xs font-semibold text-orange-700 mb-0.5">จุดรับสินค้า</p>
+            <p className="text-sm text-orange-800">{pickupLocation}</p>
+          </div>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="bg-white rounded-xl p-4 shadow-sm space-y-4">
         <div>

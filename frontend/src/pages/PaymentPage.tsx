@@ -29,7 +29,7 @@ export function PaymentPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-3 text-center px-4">
         <p className="text-red-500">{loadError}</p>
-        <Link to="/" className="text-orange-500 underline">กลับหน้าหลัก</Link>
+        <Link to="/order" className="text-orange-500 underline">กลับหน้าเมนู</Link>
       </div>
     )
   }

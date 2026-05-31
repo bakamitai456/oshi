@@ -20,7 +20,7 @@ export function CheckoutPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-4">
         <p className="text-gray-500">ตะกร้าว่างเปล่า</p>
-        <Link to="/" className="text-orange-500 underline">กลับหน้าเมนู</Link>
+        <Link to="/order" className="text-orange-500 underline">กลับหน้าเมนู</Link>
       </div>
     )
   }
@@ -50,7 +50,7 @@ export function CheckoutPage() {
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-6 max-w-md mx-auto">
       <div className="flex items-center gap-3 mb-6">
-        <Link to="/" className="text-orange-500">←</Link>
+        <Link to="/order" className="text-orange-500">←</Link>
         <h1 className="text-2xl font-bold">ยืนยันคำสั่งซื้อ</h1>
       </div>
 

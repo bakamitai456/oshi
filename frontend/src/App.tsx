@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { ProtectedRoute } from './components/ProtectedRoute'
+import { CustomerHomePage } from './pages/CustomerHomePage'
 import { LandingPage } from './pages/LandingPage'
 import { CheckoutPage } from './pages/CheckoutPage'
 import { PaymentPage } from './pages/PaymentPage'
@@ -12,7 +13,8 @@ import { MerchantMenuPage } from './pages/MerchantMenuPage'
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<LandingPage />} />
+      <Route path="/" element={<CustomerHomePage />} />
+      <Route path="/order" element={<LandingPage />} />
       <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/payment/:id" element={<PaymentPage />} />
       <Route path="/orders" element={<OrderLookupPage />} />

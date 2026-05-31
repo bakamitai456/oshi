@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { api } from '../lib/api'
 import { formatTHB } from '../components/MenuItemCard'
+import { usePickupLocation } from '../hooks/usePickupLocation'
 
 const PHONE_RE = /^0\d{9}$/
 
@@ -13,11 +14,7 @@ export function CheckoutPage() {
   const [phone, setPhone] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [pickupLocation, setPickupLocation] = useState('')
-
-  useEffect(() => {
-    api.settings.get().then((s) => setPickupLocation(s.pickupLocation)).catch(() => {})
-  }, [])
+  const pickupLocation = usePickupLocation()
 
   if (items.length === 0) {
     return (

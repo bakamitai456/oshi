@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../lib/api'
 import { OrderStatusBadge } from '../components/OrderStatusBadge'
 import { formatTHB } from '../components/MenuItemCard'
+import { usePickupLocation } from '../hooks/usePickupLocation'
 import type { Order } from '../types'
 
 const PHONE_RE = /^0\d{9}$/
@@ -12,11 +13,7 @@ export function OrderLookupPage() {
   const [orders, setOrders] = useState<Order[] | null>(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [pickupLocation, setPickupLocation] = useState('')
-
-  useEffect(() => {
-    api.settings.get().then((s) => setPickupLocation(s.pickupLocation)).catch(() => {})
-  }, [])
+  const pickupLocation = usePickupLocation()
 
   async function handleLookup(e: React.FormEvent) {
     e.preventDefault()

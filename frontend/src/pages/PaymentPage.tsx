@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { api } from '../lib/api'
 import { formatTHB } from '../components/MenuItemCard'
+import { PageHeader } from '../components/PageHeader'
 import type { Order } from '../types'
 
 const MAX_SIZE = 5 * 1024 * 1024
@@ -63,8 +64,12 @@ export function PaymentPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-6 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-1">ชำระเงิน</h1>
+    <div className="min-h-screen bg-gray-50">
+      <PageHeader
+        title="ชำระเงิน"
+        right={<Link to="/orders" className="text-sm text-orange-500 hover:text-orange-600 transition-colors">ติดตามออเดอร์</Link>}
+      />
+      <div className="max-w-lg mx-auto px-4 py-6">
       <p className="text-gray-500 mb-5 text-sm">
         หมายเลขออเดอร์:{' '}
         <span className="font-mono font-bold text-gray-900 bg-yellow-100 px-1.5 py-0.5 rounded">
@@ -126,6 +131,7 @@ export function PaymentPage() {
           </button>
         </form>
       )}
+      </div>
     </div>
   )
 }

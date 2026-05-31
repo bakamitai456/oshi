@@ -4,6 +4,7 @@ import { api } from '../lib/api'
 import { OrderStatusBadge } from '../components/OrderStatusBadge'
 import { formatTHB } from '../components/MenuItemCard'
 import { usePickupLocation } from '../hooks/usePickupLocation'
+import { PageHeader } from '../components/PageHeader'
 import type { Order } from '../types'
 
 const PHONE_RE = /^0\d{9}$/
@@ -32,12 +33,12 @@ export function OrderLookupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-6 max-w-md mx-auto">
-      <div className="flex items-center gap-3 mb-4">
-        <button onClick={() => navigate(-1)} className="text-orange-500">←</button>
-        <h1 className="text-2xl font-bold">ติดตามออเดอร์</h1>
-      </div>
-
+    <div className="min-h-screen bg-gray-50">
+      <PageHeader
+        title="ติดตามออเดอร์"
+        right={<button onClick={() => navigate(-1)} className="text-sm text-orange-500 hover:text-orange-600 transition-colors">← กลับ</button>}
+      />
+      <div className="max-w-lg mx-auto px-4 py-6">
       <p className="text-sm text-gray-500 mb-4">กรอกเบอร์โทรศัพท์ที่ใช้สั่งออเดอร์เพื่อดูสถานะ</p>
 
       <form onSubmit={handleLookup} className="flex gap-2 mb-6">
@@ -95,6 +96,7 @@ export function OrderLookupPage() {
           </div>
         )
       )}
+      </div>
     </div>
   )
 }

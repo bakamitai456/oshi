@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext'
 import { api } from '../lib/api'
 import { formatTHB } from '../components/MenuItemCard'
 import { usePickupLocation } from '../hooks/usePickupLocation'
+import { PageHeader } from '../components/PageHeader'
 
 const PHONE_RE = /^0\d{9}$/
 
@@ -48,11 +49,12 @@ export function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-6 max-w-md mx-auto">
-      <div className="flex items-center gap-3 mb-6">
-        <Link to="/order" className="text-orange-500">←</Link>
-        <h1 className="text-2xl font-bold">ยืนยันคำสั่งซื้อ</h1>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      <PageHeader
+        title="ยืนยันคำสั่งซื้อ"
+        right={<Link to="/order" className="text-sm text-orange-500 hover:text-orange-600 transition-colors">← กลับ</Link>}
+      />
+      <div className="max-w-lg mx-auto px-4 py-6">
 
       <div className="bg-white rounded-xl p-4 mb-4 shadow-sm">
         <h2 className="font-semibold mb-2 text-sm text-gray-600">รายการ</h2>
@@ -108,6 +110,7 @@ export function CheckoutPage() {
           {loading ? 'กำลังสั่ง...' : 'สั่งซื้อ'}
         </button>
       </form>
+      </div>
     </div>
   )
 }

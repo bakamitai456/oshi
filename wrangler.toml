@@ -19,6 +19,9 @@ database_id = "PLACEHOLDER_REPLACE_AFTER_D1_CREATE"
 binding = "R2"
 bucket_name = "oshi-files"
 
+[vars]
+PICKUP_LOCATION = "โปรดอัปเดตจุดรับสินค้าในไฟล์ wrangler.toml"
+
 # ── Beta environment ──────────────────────────────────────────────────────────
 # Deployed automatically on every push to main.
 # Worker secrets: wrangler secret put MERCHANT_SECRET --env beta
@@ -34,6 +37,9 @@ database_id = "e90d19db-69ad-4fad-bebe-8ece584de298"
 binding = "R2"
 bucket_name = "oshi-beta-files"
 
+[env.beta.vars]
+PICKUP_LOCATION = "โปรดอัปเดตจุดรับสินค้าในไฟล์ wrangler.toml"
+
 # ── Production environment ────────────────────────────────────────────────────
 # Deployed manually via GitHub Actions workflow_dispatch.
 # Worker secrets: wrangler secret put MERCHANT_SECRET --env production
@@ -48,3 +54,6 @@ database_id = "d5648298-548e-4960-9af0-3069a0dfdaa7"
 [[env.production.r2_buckets]]
 binding = "R2"
 bucket_name = "oshi-production-files"
+
+[env.production.vars]
+PICKUP_LOCATION = "โปรดอัปเดตจุดรับสินค้าในไฟล์ wrangler.toml"

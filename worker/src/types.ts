@@ -3,6 +3,7 @@ export type Bindings = {
   R2: R2Bucket
   ASSETS: Fetcher
   MERCHANT_SECRET: string
+  PICKUP_LOCATION: string
 }
 
 export type MenuItem = {

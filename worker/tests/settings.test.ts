@@ -3,7 +3,7 @@ import { Hono } from 'hono'
 import { settingsRoutes } from '../src/routes/settings'
 import type { Bindings } from '../src/types'
 
-function makeApp(pickupLocation: string) {
+function makeApp() {
   const app = new Hono<{ Bindings: Bindings }>()
   app.route('/api', settingsRoutes)
   return app
@@ -19,7 +19,7 @@ const mockEnv = (pickupLocation: string) => ({
 
 describe('GET /api/settings', () => {
   it('returns pickupLocation from env', async () => {
-    const app = makeApp('ชั้น 1 อาคาร A')
+    const app = makeApp()
     const res = await app.request('/api/settings', {}, mockEnv('ชั้น 1 อาคาร A'))
     expect(res.status).toBe(200)
     const data = await res.json() as { pickupLocation: string }
@@ -27,7 +27,7 @@ describe('GET /api/settings', () => {
   })
 
   it('returns empty string when PICKUP_LOCATION is not set', async () => {
-    const app = makeApp('')
+    const app = makeApp()
     const res = await app.request('/api/settings', {}, mockEnv(''))
     expect(res.status).toBe(200)
     const data = await res.json() as { pickupLocation: string }

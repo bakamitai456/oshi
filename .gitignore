@@ -4,3 +4,7 @@ dist/
 .env
 .wrangler/
 *.local
+.DS_Store
+.omc/
+frontend/src/**/*.js
+worker/src/**/*.js

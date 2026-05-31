@@ -33,4 +33,12 @@ describe('GET /api/settings', () => {
     const data = await res.json() as { pickupLocation: string }
     expect(data.pickupLocation).toBe('')
   })
+
+  it('returns empty string when PICKUP_LOCATION is the setup placeholder', async () => {
+    const app = makeApp()
+    const res = await app.request('/api/settings', {}, mockEnv('โปรดอัปเดตจุดรับสินค้าในไฟล์ wrangler.toml'))
+    expect(res.status).toBe(200)
+    const data = await res.json() as { pickupLocation: string }
+    expect(data.pickupLocation).toBe('')
+  })
 })

@@ -30,16 +30,18 @@ export function OrderLookupPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-6 max-w-md mx-auto">
-      <div className="flex items-center gap-3 mb-6">
-        <Link to="/" className="text-orange-500">←</Link>
-        <h1 className="text-2xl font-bold">ตรวจสอบออเดอร์</h1>
+      <div className="flex items-center gap-3 mb-4">
+        <Link to="/order" className="text-orange-500">←</Link>
+        <h1 className="text-2xl font-bold">ติดตามออเดอร์</h1>
       </div>
+
+      <p className="text-sm text-gray-500 mb-4">กรอกเบอร์โทรศัพท์ที่ใช้สั่งออเดอร์เพื่อดูสถานะ</p>
 
       <form onSubmit={handleLookup} className="flex gap-2 mb-6">
         <input
           value={phone}
           onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
-          placeholder="0812345678"
+          placeholder="เบอร์โทรศัพท์ เช่น 0812345678"
           inputMode="numeric"
           className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-300"
         />

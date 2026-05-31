@@ -18,7 +18,7 @@ export function CustomerHomePage() {
       .finally(() => setMenuLoading(false))
   }, [])
 
-  function scrollTo(ref: React.RefObject<HTMLElement | null>) {
+  function scrollToSection(ref: React.RefObject<HTMLElement | null>) {
     ref.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
@@ -28,9 +28,9 @@ export function CustomerHomePage() {
       <header className="sticky top-0 z-30 bg-white shadow-sm px-4 py-3 flex items-center justify-between">
         <span className="text-xl font-bold text-orange-600">oshi</span>
         <nav className="flex items-center gap-4">
-          <button onClick={() => scrollTo(aboutRef)} className="text-sm text-gray-600 hover:text-orange-500 transition-colors">เกี่ยวกับเรา</button>
-          <button onClick={() => scrollTo(menuRef)} className="text-sm text-gray-600 hover:text-orange-500 transition-colors">เมนู</button>
-          <button onClick={() => scrollTo(howRef)} className="text-sm text-gray-600 hover:text-orange-500 transition-colors">วิธีสั่ง</button>
+          <button onClick={() => scrollToSection(aboutRef)} className="text-sm text-gray-600 hover:text-orange-500 transition-colors">เกี่ยวกับเรา</button>
+          <button onClick={() => scrollToSection(menuRef)} className="text-sm text-gray-600 hover:text-orange-500 transition-colors">เมนู</button>
+          <button onClick={() => scrollToSection(howRef)} className="text-sm text-gray-600 hover:text-orange-500 transition-colors">วิธีสั่ง</button>
           <Link to="/orders" className="text-sm text-orange-500 hover:text-orange-600 font-medium transition-colors">ติดตามออเดอร์</Link>
         </nav>
       </header>
@@ -77,7 +77,7 @@ export function CustomerHomePage() {
                 <div key={item.id} className="bg-white rounded-xl p-4 shadow-sm flex items-center gap-3">
                   {item.imageKey && (
                     <img
-                      src={`/api/files/${item.imageKey}`}
+                      src={`/api/menu/${item.id}/image`}
                       alt={item.name}
                       className="w-16 h-16 object-cover rounded-lg shrink-0"
                     />
